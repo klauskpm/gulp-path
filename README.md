@@ -90,7 +90,7 @@ Path = function (path [, extension]) {
     this.dest = './destBasePath/filesPath/';
     this.src = './srcBasePath/filesPath/**/*[.extension]';
     // Return the files passed with the source path
-    this.files = function (files[, filesExtension]) {};
+    this.files = function (files [, filesExtension]) {};
 }
 ```
 
