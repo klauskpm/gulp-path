@@ -5,7 +5,7 @@ Generates a path build based on the base paths setted.
 ## Getting Started
 Install the module with: `npm install gulp-path`
 
-Now pay attention to the following example, bacause it will be referenced all the way.  
+Now pay attention to the following example, because it will be referenced all the way.  
 ```js
 var gulp = require('gulp'),
     gulpPath = require('gulp-path');
@@ -53,12 +53,43 @@ In every option above, it will return this very same Object:
 ```js
 {
     basePaths: {
-        src: "./source/path",
-        dest: "./destination/path"
+        src: './source/path',
+        dest: './destination/path'
     },
-    Path: function () {} // Path class will be explained in the following 
+    // Path class will be explained in the following
+    Path: function (path[, extension]) {}
 }
 ```
 
 ### Creating paths with Patch Class
 After the base paths had been created, you can now create your paths.  
+
+It is required to set the path you want, but can also pass the files extension as optional.
+```js
+// Setting paths
+var paths = {
+        // img.dest = './resources/images/'
+        // img.src = './assets/images/**/*'
+        img: new assets.Path('images'),
+        // js.dest = './resources/js/'
+        // js.src = './assets/js/**/*.js'
+        js: new assets.Path('js', 'js'),
+        // fonts.dest = './public/fonts/'
+        // fonts.src = './public/fonts/**/*'
+        fonts: new public.Path('fonts'),
+        // controllers.dest = './controllers/'
+        // controllers.src = './controllers/**/*.js' 
+        controllers: new app.Path('controllers', 'js')
+    };
+```
+
+As response, you will recieve the Path Class with the following
+structure:
+```js
+Path = function (path[, extension]) {
+    this.dest = './destBasePath/filesPath/';
+    this.src = './srcBasePath/filesPath/**/*[.extension]';
+    // Return the files passed with the source path
+    this.files = function (files[, filesExtension]) {};
+}
+```
