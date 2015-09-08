@@ -46,7 +46,7 @@ And for that, you have 3 ways to do it.
         Ex: `var public = gulpPath.Base('./public/');`
 - I'm not even looking mode (Nothing, really)
     - Just calling it will make your paths for destination and source files to
-    be the same, and will be setted as `'./'`;
+    be the same, and will be setted as `'./'`;  
         Ex: `var app = gulpPath.Base();`
         
 In every option above, it will return this very same Object:
