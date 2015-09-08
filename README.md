@@ -61,7 +61,7 @@ In every option above, it will return this very same Object:
 }
 ```
 
-### Creating paths with Patch Class
+### Creating paths with Path Class
 After the base paths had been created, you can now create your paths.  
 
 It is required to set the path you want, but can also pass the files extension as optional.
