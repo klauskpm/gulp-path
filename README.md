@@ -57,7 +57,7 @@ In every option above, it will return this very same Object:
         dest: './destination/path'
     },
     // Path class will be explained in the following
-    Path: function (path[, extension]) {}
+    Path: function (path [, extension]) {}
 }
 ```
 
@@ -86,7 +86,7 @@ var paths = {
 As response, you will recieve the Path Class with the following
 structure:
 ```js
-Path = function (path[, extension]) {
+Path = function (path [, extension]) {
     this.dest = './destBasePath/filesPath/';
     this.src = './srcBasePath/filesPath/**/*[.extension]';
     // Return the files passed with the source path
@@ -105,7 +105,7 @@ gulp.task('default', function (done) {
 });
 ```
 
-Those days are over. Now you just need to call `Path.files(files[, 
+Those days are over. Now you just need to call `Path.files(files [, 
 filesExtension]);`.  
 ```js
 gulp.task('default', function (done) {
