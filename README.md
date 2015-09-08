@@ -93,3 +93,24 @@ Path = function (path[, extension]) {
     this.files = function (files[, filesExtension]) {};
 }
 ```
+
+### Generating files blob with Path's files function
+So, now you already declared your paths, but still is a pain to write all the
+paths like bellow right?
+```js
+gulp.task('default', function (done) {
+    gulp.src(['./assets/js/main.min.js', './assets/js/compiled.min.js'])
+        .pipe(gulp.dest(paths.js.dest))
+        .on('end', done());
+});
+```
+
+This days are over. Now you just need to call `Path.files(files[, 
+filesExtension]);`.  
+```js
+gulp.task('default', function (done) {
+    gulp.src(paths.js.files(['main', 'compiled'], 'min.js'))
+        .pipe(gulp.dest(paths.js.dest))
+        .on('end', done());
+});
+```
