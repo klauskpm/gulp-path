@@ -25,7 +25,7 @@ var paths = {
     };
     
 gulp.task('default', function (done) {
-    gulp.src(paths.js.files(\['main', 'compiled'\], 'min.js'))
+    gulp.src(paths.js.files(['main', 'compiled'], 'min.js'))
         .pipe(gulp.dest(paths.js.dest))
         .on('end', done());
 });
