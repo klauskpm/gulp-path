@@ -105,7 +105,7 @@ gulp.task('default', function (done) {
 });
 ```
 
-This days are over. Now you just need to call `Path.files(files[, 
+Those days are over. Now you just need to call `Path.files(files[, 
 filesExtension]);`.  
 ```js
 gulp.task('default', function (done) {
