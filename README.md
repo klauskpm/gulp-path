@@ -17,25 +17,17 @@ var assets = gulpPath.Base({
     app = gulpPath.Base();
     
 var paths = {
-        /**
-         * img.src = './assets/img/'
-         * img.dest = './resources/img/**/*'
-         */
+        // img.src = './assets/img/'
+        // img.dest = './resources/img/**/*'
         img: new assets.Path("img"),
-        /**
-         * js.src = './assets/js/'
-         * js.dest = './resources/js/**/*.js'
-         */
+        // js.src = './assets/js/'
+        // js.dest = './resources/js/**/*.js'
         js: new assets.Path("js", "js"),
-        /**
-         * fonts.src = './public/fonts/'
-         * fonts.dest = './public/fonts/**/*'
-         */
+        // fonts.src = './public/fonts/'
+        // fonts.dest = './public/fonts/**/*'
         fonts: new public.Path("fonts"),
-        /**
-         * controllers.src = './controllers/'
-         * controllers.dest = './controllers/**/*.js'
-         */
+        // controllers.src = './controllers/'
+        // controllers.dest = './controllers/**/*.js'
         controllers: new app.Path("controllers", "js")
     };
 ```
