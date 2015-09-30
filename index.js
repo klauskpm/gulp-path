@@ -22,10 +22,10 @@ module.exports = {
             basePaths: basePaths,
             Path: function (path, extension) {
                 extension = (typeof extension === "undefined" ? "" : "." + extension);
-                fullPath = basePaths.dest + path + "/";
+                srcPath = basePaths.src + path + "/";
 
-                this.dest = fullPath;
-                this.src = fullPath + "**/*" + extension;
+                this.dest = basePaths.dest + path + "/";
+                this.src = srcPath + "**/*" + extension;
                 this.files = function (files, filesExtension) {
                     filesExtension = (typeof filesExtension === "undefined" ? "" : "." + filesExtension);
                     if (typeof files === "undefined") {
@@ -36,7 +36,7 @@ module.exports = {
 
                     var paths = [];
                     files.forEach( function (file) {
-                        paths.push(fullPath + file + filesExtension);
+                        paths.push(srcPath + file + filesExtension);
                     });
 
                     return paths;
