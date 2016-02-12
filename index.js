@@ -1,47 +1,47 @@
+'use strict';
+
+var Base = require('./base');
+var filesPaths = require('./files');
+
+var assets = new Base({
+        src: './assets/',
+        dest: './resources/'
+    }),
+    views = new Base('./views/'),
+    root = new Base(),
+    app = new Base({
+        src: [
+            './app/',
+            './js/'
+        ],
+        dest: [
+            './dest/',
+            './concat/'
+        ]
+    });
+
+var paths = {
+        img: assets.Path('img'),
+        js: assets.Path('js', 'js'),
+        fonts: views.Path('fonts'),
+        controllers: root.Path('controllers', 'js'),
+        data: app.Path()
+    };
+
+console.log(paths);
+
+console.log(
+    paths.img.files(null, ['png', 'jpg', 'gif']),
+    paths.img.files(),
+    paths.js.files(['compiled', 'main'], 'min.js'),
+    paths.fonts.files(['Roboto', 'glyphicons-halflings-regular'], ['eot', 'ttf', 'svg', 'woff', 'woff2']),
+    paths.controllers.files('homeController', ['min.js', 'js']),
+    paths.data.files(['main', 'sub-service'], ['min.js', 'js']),
+    filesPaths(['./app/', './resource/**/'], null, ['scss', 'css']),
+    filesPaths()
+);
+
 module.exports = {
-    Base: function (opt) {
-
-        if (typeof opt === "undefined" || !opt) {
-            opt = {
-                dest: "./",
-                src: "./"
-            };
-        } else if (typeof opt === "string") {
-            opt = {
-                dest: opt,
-                src: opt
-            };
-        }
-
-        var basePaths = {
-            dest: opt.dest,
-            src: opt.src
-        };
-
-        return {
-            basePaths: basePaths,
-            Path: function (path, extension) {
-                extension = (typeof extension === "undefined" ? "" : "." + extension);
-                srcPath = basePaths.src + path + "/";
-
-                this.dest = basePaths.dest + path + "/";
-                this.src = srcPath + "**/*" + extension;
-                this.files = function (files, filesExtension) {
-                    filesExtension = (typeof filesExtension === "undefined" ? "" : "." + filesExtension);
-                    if (typeof files === "undefined") {
-                        return false;
-                    } else if (typeof files === "string") {
-                        files = [files];
-                    }
-
-                    var paths = [];
-                    files.forEach( function (file) {
-                        paths.push(srcPath + file + filesExtension);
-                    });
-
-                    return paths;
-                }
-            }
-        };
-    }
+    Base: Base,
+    filesPaths: filesPaths
 };
