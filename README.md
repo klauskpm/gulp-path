@@ -54,7 +54,7 @@ And for that, you have 3 ways to do it.
     - This is the only way you can choose different paths for your destination
      and source files;  
         Ex: `var assets = new gulpPath.Base({ src: './assets/', dest: './resources/' });`
-    - You also could set multiple base paths for source and destination files;
+    - You also could set multiple base paths for source and destination files;  
         Ex: `var assets = new gulpPath.Base({ src: ['./assets/', './app/'], dest: ['./resources/', './views/'] });`
 - Kinda-care mode (As a String)
     - Setting up as a string, will make your paths for destination and source
