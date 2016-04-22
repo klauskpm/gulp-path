@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = function (sourcePaths, filesList, filesExtensions) {
     if (typeof sourcePaths === "undefined" || !sourcePaths) {
         sourcePaths = ['./'];
@@ -25,7 +27,7 @@ module.exports = function (sourcePaths, filesList, filesExtensions) {
     sourcePaths.forEach(function (sourcePath) {
         filesList.forEach(function (file) {
             filesExtensions.forEach(function (fileExtension) {
-                paths.push(sourcePath + file + fileExtension);
+                paths.push(path.join(sourcePath, file + fileExtension));
             })
         });
     });

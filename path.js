@@ -3,11 +3,12 @@
 const srcPath = Symbol('srcPath');
 
 var files = require('./files');
+var gpath = require('path');
 
 class Path {
     constructor(basePaths, path, extension) {
         extension = (typeof extension === 'undefined') ? '' : '.' + extension;
-        path = (typeof path === 'undefined') ? '' : path + '/';
+        path = (typeof path === 'undefined') ? '' : path;
         
         var self        = this;
         var src         = basePaths.src;
@@ -21,7 +22,7 @@ class Path {
         
         this.src = src.map(function (source) {
             self[srcPath].push(source + path);
-            return source + path + "**/*" + extension;
+            return gpath.join(source, path, '**', '*' + extension);
         });
         
         // Handling dest paths configuration
@@ -30,7 +31,7 @@ class Path {
         }
         
         this.dest = dest.map(function (destination) {
-            return destination + path;
+            return gpath.join(destination, path);
         });
     }
     
