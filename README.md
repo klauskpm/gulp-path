@@ -73,9 +73,7 @@ In every option above, it will return this very same Object:
         dest: './destination/path'
     },
     // Path class will be explained in the following
-    Path: function ([paths , extensions]) {},
-    // filesPath method will be explained in the following
-    filesPath: function([paths, files, extensions])
+    Path: function ([paths , extensions]) {}
 }
 ```
 
