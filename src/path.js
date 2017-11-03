@@ -1,9 +1,10 @@
 'use strict';
 
 const srcPath = Symbol('srcPath');
+// opa
 
 var files = require('./files');
-var gpath = require('path');
+var gpath = require('src/path');
 
 class Path {
     constructor(basePaths, path, extension) {

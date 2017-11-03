@@ -1,4 +1,4 @@
-var path = require('path');
+var path = require('src/path');
 
 module.exports = function (sourcePaths, filesList, filesExtensions) {
     if (typeof sourcePaths === "undefined" || !sourcePaths) {
