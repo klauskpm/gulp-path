@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('src/app/path');
 const generateBlob = require('./blob');
 
 const defaultBasePaths = ['./'];
@@ -36,7 +36,7 @@ class Path {
     }
 
     _addSubPathToPath(subPaths, list) {
-        let blob = [];
+        var blob = [];
 
         list.forEach((src) => {
             subPaths.forEach(subPath => {
@@ -67,10 +67,6 @@ class Path {
     generateOutput(subPaths) {
         return generateBlob(this.output, subPaths, '', '');
     }
-    
-    // Path (path, extension) {
-    //     return new Path(this.basePaths, path, extension);
-    // }
 }
 
 // let app = new Path('./development', './production', ['public', 'admin']);
