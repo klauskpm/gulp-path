@@ -2,42 +2,83 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var path = _interopDefault(require('src/path'));
+var path = _interopDefault(require('path'));
+var path$1 = _interopDefault(require('src/path'));
 
-var files = function (sourcePaths, filesList, filesExtensions) {
-    if (typeof sourcePaths === "undefined" || !sourcePaths) {
-        sourcePaths = ['./'];
-    } else if (typeof sourcePaths === "string") {
-        sourcePaths = [sourcePaths];
-    }
-    
-    if (typeof filesList === "undefined" || !filesList) {
-        filesList = ['*'];
-    } else if (typeof filesList === "string") {
-        filesList = [filesList];
-    }
-    
-    if (typeof filesExtensions === 'undefined' || !filesExtensions) {
-        filesExtensions =  [''];
-    } else if (typeof filesExtensions === 'string') {
-        filesExtensions = ['.' + filesExtensions];
-    } else {
-        filesExtensions = filesExtensions.map(function (extension) {
-            return '.' + extension;
-        });
-    }
-    
-    var paths = [];
-    sourcePaths.forEach(function (sourcePath) {
-        filesList.forEach(function (file) {
-            filesExtensions.forEach(function (fileExtension) {
-                paths.push(path.join(sourcePath, file + fileExtension));
+"use strict";
+
+
+
+function generateBlob(bases, paths, files, extensions) {
+    let blob = [];
+    bases = typeof bases === 'undefined' || !bases ? ['./'] : bases;
+    paths = typeof paths === 'undefined' || !paths ? [''] : paths;
+    files = typeof files === 'undefined' || !files ? ['*'] : files;
+    extensions = typeof extensions === 'undefined' || !extensions ? [''] : extensions;
+
+    if (typeof bases === 'string')
+        bases = [bases];
+
+    if (typeof paths === 'string')
+        paths = [paths];
+
+    if (typeof files === 'string')
+        files = [files];
+
+    if (typeof extensions === 'string')
+        extensions = [extensions];
+
+
+    bases.forEach(base => {
+        paths.forEach(src => {
+            files.forEach(file => {
+                extensions.forEach(ext => {
+                    ext = ext ? `.${ext}` : '';
+                    blob.push(path.join(base, src, file + ext));
+                });
             });
         });
     });
 
-    return paths;
-};
+    return blob;
+}
+
+var files = generateBlob;
+
+// module.exports = function (sourcePaths, filesList, filesExtensions) {
+//     if (typeof sourcePaths === "undefined" || !sourcePaths) {
+//         sourcePaths = ['./'];
+//     } else if (typeof sourcePaths === "string") {
+//         sourcePaths = [sourcePaths];
+//     }
+//
+//     if (typeof filesList === "undefined" || !filesList) {
+//         filesList = ['*'];
+//     } else if (typeof filesList === "string") {
+//         filesList = [filesList];
+//     }
+//
+//     if (typeof filesExtensions === 'undefined' || !filesExtensions) {
+//         filesExtensions =  [''];
+//     } else if (typeof filesExtensions === 'string') {
+//         filesExtensions = ['.' + filesExtensions];
+//     } else {
+//         filesExtensions = filesExtensions.map(function (extension) {
+//             return '.' + extension;
+//         })
+//     }
+//
+//     var paths = [];
+//     sourcePaths.forEach(function (sourcePath) {
+//         filesList.forEach(function (file) {
+//             filesExtensions.forEach(function (fileExtension) {
+//                 paths.push(path.join(sourcePath, file + fileExtension));
+//             })
+//         });
+//     });
+//
+//     return paths;
+// }
 
 'use strict';
 
@@ -64,7 +105,7 @@ class Path {
         
         this.src = src.map(function (source) {
             self[srcPath].push(source + path$$1);
-            return path.join(source, path$$1, '**', '*' + extension);
+            return path$1.join(source, path$$1, '**', '*' + extension);
         });
         
         // Handling dest paths configuration
@@ -73,7 +114,7 @@ class Path {
         }
         
         this.dest = dest.map(function (destination) {
-            return path.join(destination, path$$1);
+            return path$1.join(destination, path$$1);
         });
     }
     
@@ -82,7 +123,7 @@ class Path {
     }
 }
 
-var path$1 = Path;
+var path$2 = Path;
 
 'use strict';
 
@@ -109,7 +150,7 @@ class Base {
     }
     
     Path (path$$1, extension) {
-        return new path$1(this.basePaths, path$$1, extension);
+        return new path$2(this.basePaths, path$$1, extension);
     }
 }
     
