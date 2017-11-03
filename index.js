@@ -3,7 +3,6 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var path = _interopDefault(require('path'));
-var path$1 = _interopDefault(require('src/path'));
 
 "use strict";
 
@@ -13,7 +12,7 @@ function generateBlob(bases, paths, files, extensions) {
     let blob = [];
     bases = typeof bases === 'undefined' || !bases ? ['./'] : bases;
     paths = typeof paths === 'undefined' || !paths ? [''] : paths;
-    files = typeof files === 'undefined' || !files ? ['*'] : files;
+    files = typeof files === 'undefined' || !files ? [''] : files;
     extensions = typeof extensions === 'undefined' || !extensions ? [''] : extensions;
 
     if (typeof bases === 'string')
@@ -43,7 +42,7 @@ function generateBlob(bases, paths, files, extensions) {
     return blob;
 }
 
-var files = generateBlob;
+var blob = generateBlob;
 
 // module.exports = function (sourcePaths, filesList, filesExtensions) {
 //     if (typeof sourcePaths === "undefined" || !sourcePaths) {
@@ -82,89 +81,88 @@ var files = generateBlob;
 
 'use strict';
 
-const srcPath = Symbol('srcPath');
-// opa
 
 
 
+const defaultBasePaths = ['./'];
 
 class Path {
-    constructor(basePaths, path$$1, extension) {
-        extension = (typeof extension === 'undefined') ? '' : '.' + extension;
-        path$$1 = (typeof path$$1 === 'undefined') ? '' : path$$1;
-        
-        var self        = this;
-        var src         = basePaths.src;
-        var dest        = basePaths.dest;
-        this[srcPath]   = [];
-        
-        // Handling src paths configuration
-        if (typeof src === 'string') {
-            src = [src];
-        }
-        
-        this.src = src.map(function (source) {
-            self[srcPath].push(source + path$$1);
-            return path$1.join(source, path$$1, '**', '*' + extension);
+    constructor(input, output, subPaths) {
+        this._configureInputAndOutput(input, output);
+        this._configureSubPaths(subPaths);
+    }
+
+    _configureInputAndOutput(input, output) {
+        const inputIsUndefined = typeof input === "undefined" || !input;
+        const outputIsUndefined = typeof output === "undefined" || !output;
+
+        input = inputIsUndefined ? defaultBasePaths : (Array.isArray(input) ? input : [input]);
+        output = outputIsUndefined ? input : (Array.isArray(output) ? output : [output]);
+
+        this.input = input;
+        this.output = output;
+    }
+
+    _configureSubPaths(subPaths) {
+        const subPathsIsUndefined = typeof subPaths === "undefined" || !subPaths;
+
+        if (subPathsIsUndefined)
+            return;
+
+        if (typeof subPaths === 'string')
+            subPaths = [subPaths];
+
+        this.input = this._addSubPathToPath(subPaths, this.input);
+        this.output = this._addSubPathToPath(subPaths, this.output);
+    }
+
+    _addSubPathToPath(subPaths, list) {
+        let blob$$1 = [];
+
+        list.forEach((src) => {
+            subPaths.forEach(subPath => {
+                blob$$1.push(path.join(src, subPath));
+            });
         });
-        
-        // Handling dest paths configuration
-        if (typeof dest === 'string') {
-            dest = [dest];
-        }
-        
-        this.dest = dest.map(function (destination) {
-            return path$1.join(destination, path$$1);
-        });
-    }
-    
-    files (filesList, filesExtension) {
-        return files(this[srcPath], filesList, filesExtension);
-    }
-}
 
-var path$3 = Path;
-
-'use strict';
-
-
-
-const defaultBasePaths = {
-    input: "./",
-    output: "./"
-};
-
-class Base {
-    constructor(basePaths) {
-        basePaths = typeof basePaths === "undefined" || !basePaths ? defaultBasePaths : basePaths;
-
-        if (typeof basePaths === "string") {
-            basePaths = {
-                input: basePaths,
-                output: basePaths
-            };
-        }
-        
-        this.basePaths = basePaths;
+        return blob$$1;
     }
 
-    createPath(path$$1) {
-        return new path$3(this.basePaths, path$$1);
+    createSubPath(subPaths) {
+        return new Path(this.input, this.output, subPaths);
     }
 
-    getFiles(paths, files$$1, extensions) {
+    generateAllPaths(subPathsInput, subPathsOutput, files, extensions) {
         return {
-            input: files(this.basePaths.input, paths, files$$1, extensions),
-            output: files(this.basePaths.output, paths, files$$1, extensions)
+            input: this.generateInput(subPathsInput, files, extensions),
+            output: this.generateOutput(subPathsOutput || subPathsInput)
         };
+    }
+
+    generateInput(subPaths, files, extensions) {
+        files = files || '*';
+
+        return blob(this.input, subPaths, files, extensions);
+    }
+
+    generateOutput(subPaths) {
+        return blob(this.output, subPaths, '', '');
     }
     
     // Path (path, extension) {
     //     return new Path(this.basePaths, path, extension);
     // }
 }
-    
-var base = Base;
+
+// let app = new Path('./development', './production', ['public', 'admin']);
+// let subApp = app.createSubPath('sub');
+//
+// console.log('input', app.generateInput('sass'));
+// console.log('output', app.generateOutput('css'));
+// console.log('all', app.getAllFiles('sass', 'css', ['index', 'main'], ['js', 'min.js']));
+// console.log('subPath', subApp.getAllFiles('sass', 'css', null, ['js', 'min.js']));
+
+var path_1 = Path;
 
 'use strict';
 
@@ -172,8 +170,8 @@ var base = Base;
 
 
 var src = {
-    Base: base,
-    filesPaths: files
+    Path: path_1,
+    generateBlob: blob
 };
 
 module.exports = src;

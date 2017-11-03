@@ -6,7 +6,7 @@ function generateBlob(bases, paths, files, extensions) {
     let blob = [];
     bases = typeof bases === 'undefined' || !bases ? ['./'] : bases;
     paths = typeof paths === 'undefined' || !paths ? [''] : paths;
-    files = typeof files === 'undefined' || !files ? ['*'] : files;
+    files = typeof files === 'undefined' || !files ? [''] : files;
     extensions = typeof extensions === 'undefined' || !extensions ? [''] : extensions;
 
     if (typeof bases === 'string')

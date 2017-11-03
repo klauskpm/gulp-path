@@ -1,9 +1,9 @@
 'use strict';
 
-var Base = require('./base');
-var filesPaths = require('./files');
+const Path = require('./path');
+const generateBlob = require('./blob');
 
 module.exports = {
-    Base: Base,
-    filesPaths: filesPaths
+    Path,
+    generateBlob
 };
