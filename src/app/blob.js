@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require('app/path');
+const path = require('path');
 
 function generateBlob(bases, paths, files, extensions) {
     let blob = [];

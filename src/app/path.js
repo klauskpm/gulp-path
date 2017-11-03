@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('src/app/path');
+const path = require('path');
 const generateBlob = require('./blob');
 
 const defaultBasePaths = ['./'];

@@ -12,11 +12,11 @@ export default {
         format: 'cjs', // immediately-invoked function expression — suitable for <script> tags
     },
     plugins: [
+        resolve(), // tells Rollup how to find date-fns in node_modules
+        commonjs(), // converts date-fns to ES modules
         babel({
             exclude: 'node_modules/**'
         }),
-        resolve(), // tells Rollup how to find date-fns in node_modules
-        commonjs(), // converts date-fns to ES modules
         production && uglify() // minify, but only in production
     ],
     sourcemap: true
