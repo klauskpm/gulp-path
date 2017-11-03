@@ -123,35 +123,45 @@ class Path {
     }
 }
 
-var path$2 = Path;
+var path$3 = Path;
 
 'use strict';
 
 
 
+const defaultBasePaths = {
+    input: "./",
+    output: "./"
+};
+
 class Base {
-    constructor(opt) {
-        if (typeof opt === "undefined" || !opt) {
-            opt = {
-                dest: "./",
-                src: "./"
-            };
-        } else if (typeof opt === "string") {
-            opt = {
-                dest: opt,
-                src: opt
+    constructor(basePaths) {
+        basePaths = typeof basePaths === "undefined" || !basePaths ? defaultBasePaths : basePaths;
+
+        if (typeof basePaths === "string") {
+            basePaths = {
+                input: basePaths,
+                output: basePaths
             };
         }
         
-        this.basePaths = {
-            dest: opt.dest,
-            src: opt.src
+        this.basePaths = basePaths;
+    }
+
+    createPath(path$$1) {
+        return new path$3(this.basePaths, path$$1);
+    }
+
+    getFiles(paths, files$$1, extensions) {
+        return {
+            input: files(this.basePaths.input, paths, files$$1, extensions),
+            output: files(this.basePaths.output, paths, files$$1, extensions)
         };
     }
     
-    Path (path$$1, extension) {
-        return new path$2(this.basePaths, path$$1, extension);
-    }
+    // Path (path, extension) {
+    //     return new Path(this.basePaths, path, extension);
+    // }
 }
     
 var base = Base;
