@@ -69,12 +69,4 @@ class Path {
     }
 }
 
-// let app = new Path('./development', './production', ['public', 'admin']);
-// let subApp = app.createSubPath('sub');
-//
-// console.log('input', app.generateInput('sass'));
-// console.log('output', app.generateOutput('css'));
-// console.log('all', app.getAllFiles('sass', 'css', ['index', 'main'], ['js', 'min.js']));
-// console.log('subPath', subApp.getAllFiles('sass', 'css', null, ['js', 'min.js']));
-
 module.exports = Path;
